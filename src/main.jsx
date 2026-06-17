@@ -1,10 +1,13 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.jsx'
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import './index.css';
+import Data, { Refer } from './Hooks&Forms.jsx'; // import both
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <App />
+    <div>
+      <Data />
+      <Refer />
+    </div>
   </StrictMode>,
-)
+);

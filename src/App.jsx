@@ -1,3 +1,5 @@
+import React from "react";
+
 function App() {
   const name = "world";
   let num1 = 34;
@@ -56,5 +58,25 @@ function App() {
     </div>
   );
 }
+function App1() {
+  return (
+    <div>
+      {/* Here you are calling Student */}
+      <Student name="Hasan" age="22" course="React" />
+    </div>
+  );
+}
 
-export default App;
+function Student({ name, age, course }) {
+  return (
+    <div style={{ color: "navy", fontSize: "18px" }}>
+      <h2>Student Details</h2>
+      <p>Name: {name}</p>
+      <p>Age: {age}</p>
+      <p>Course: {course}</p>
+    </div>
+  );
+}
+
+export default App1;
+
