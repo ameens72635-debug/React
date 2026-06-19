@@ -8,7 +8,25 @@ import SalaryEstimator from "./SalaryEstimator.jsx";
 import CollegeComparator from "./CollegeComparator.jsx";
 
 export default function AppController() {
-  const [page, setPage] = useState("landing");
+  const [pageHistory, setPageHistory] = useState(["landing"]);
+  const page = pageHistory[pageHistory.length - 1];
+
+  const navigateTo = (nextPage) => {
+    setPageHistory((currentHistory) => {
+      const currentPage = currentHistory[currentHistory.length - 1];
+      if (currentPage === nextPage) {
+        return currentHistory;
+      }
+
+      return [...currentHistory, nextPage];
+    });
+  };
+
+  const goBack = () => {
+    setPageHistory((currentHistory) =>
+      currentHistory.length > 1 ? currentHistory.slice(0, -1) : currentHistory
+    );
+  };
 
   const styles = {
     appContainer: {
@@ -17,6 +35,10 @@ export default function AppController() {
       minHeight: "100vh",
       color: "#0f172a",
     },
+    pageShell: { maxWidth: "1380px", margin: "0 auto" },
+    pageTopBar: { display: "flex", alignItems: "center", gap: "12px", marginBottom: "18px" },
+    backButton: { padding: "10px 14px", borderRadius: "999px", background: "rgba(255,255,255,0.14)", color: "#ffffff", border: "1px solid rgba(255,255,255,0.22)", boxShadow: "0 12px 28px rgba(15,23,42,0.16)" },
+    topBarLabel: { color: "#e2e8f0", fontWeight: "700", fontSize: "0.95rem" },
     mainTitle: { color: "#ffffff", fontSize: "2.4rem", fontWeight: "800", marginBottom: "8px", textShadow: "0 8px 24px rgba(15, 23, 42, 0.35)" },
     mainSubtitle: { color: "#e2e8f0", fontSize: "1rem", marginBottom: "24px" },
     cardGrid: { display: "flex", gap: "18px", justifyContent: "center", flexWrap: "wrap", alignItems: "stretch" },
@@ -40,12 +62,26 @@ export default function AppController() {
     detailValue: { fontSize: "0.98rem", color: "#0f172a", fontWeight: "600" }
   };
 
-  if (page === "landing") return <LandingPage styles={styles} onNavigate={setPage} />;
-  if (page === "college") return <CollegeSelector styles={styles} />;
-  if (page === "branch") return <BranchExplorer styles={styles} />;
-  if (page === "quiz") return <Quiz styles={styles} />;
-  if (page === "salary") return <SalaryEstimator styles={styles} />;
-  if (page === "compare") return <CollegeComparator styles={styles} />;
+  const pageContent =
+    page === "landing" ? <LandingPage styles={styles} onNavigate={navigateTo} /> :
+    page === "college" ? <CollegeSelector styles={styles} onNavigate={navigateTo} /> :
+    page === "branch" ? <BranchExplorer styles={styles} onNavigate={navigateTo} /> :
+    page === "quiz" ? <Quiz styles={styles} onNavigate={navigateTo} /> :
+    page === "salary" ? <SalaryEstimator styles={styles} onNavigate={navigateTo} /> :
+    page === "compare" ? <CollegeComparator styles={styles} onNavigate={navigateTo} /> :
+    <LandingPage styles={styles} onNavigate={navigateTo} />;
 
-  return <LandingPage styles={styles} onNavigate={setPage} />;
+  return (
+    <div style={styles.appContainer}>
+      {page !== "landing" && (
+        <div style={styles.pageShell}>
+          <div style={styles.pageTopBar}>
+            <button style={styles.backButton} onClick={goBack}>← Back</button>
+            <span style={styles.topBarLabel}>Go back to the previous page</span>
+          </div>
+        </div>
+      )}
+      {pageContent}
+    </div>
+  );
 }
