@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#8b5cf6"/>
+      <stop offset="55%" stop-color="#ec4899"/>
+      <stop offset="100%" stop-color="#0ea5e9"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="520" rx="34" fill="url(#g)"/>
+  <rect x="108" y="88" width="584" height="344" rx="30" fill="rgba(255,255,255,0.92)"/>
+  <path d="M250 250c0-70 50-112 108-112h20c58 0 108 42 108 112s-50 112-108 112h-20c-58 0-108-42-108-112Z" fill="#0f172a" opacity="0.10"/>
+  <path d="M294 250c0-42 30-66 64-66h16c34 0 64 24 64 66s-30 66-64 66h-16c-34 0-64-24-64-66Z" fill="none" stroke="#0f172a" stroke-width="12"/>
+  <circle cx="376" cy="250" r="16" fill="#0f172a"/>
+  <text x="194" y="188" fill="#0f172a" font-size="38" font-family="Segoe UI, Arial" font-weight="700">AI + ML</text>
+  <text x="194" y="388" fill="#334155" font-size="24" font-family="Segoe UI, Arial">Intelligent systems for tomorrow</text>
+</svg>

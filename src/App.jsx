@@ -1,82 +1,58 @@
-import React from "react";
 
-function App() {
-  const name = "world";
-  let num1 = 34;
-  let num2 = 43;
-  let num = num1 + num2;
-  let age = 25;
-  let userage = 3; // try changing this value
+import { useState } from "react";
+import { btechData } from "./data";
+import DetailsPanel from "./DetailsPanel";
 
-  const worn = () => {
-    alert("warning");
-  };
+export default function App() {
+  const [activeBranch, setActiveBranch] = useState(null);
 
   return (
-    <div>
-      {/* First image */}
-      <img
-        style={{ width: 300 }}
-        src="https://www.bing.com/th/id/OIP.G37tgeQqSNt7v2oPfj9ltQHaE7?w=193&h=135&c=8&rs=1&qlt=90&o=6&pid=3.1&rm=2"
-        alt="image"
-      />
+    <div style={styles.appContainer}>
+      <header style={styles.appHeader}>
+        <h1 style={styles.mainTitle}>🎓 PathFinder B.Tech Portal</h1>
+        <p style={styles.mainSubtitle}>
+          Honest environment details and career insights for intermediate students.
+        </p>
+      </header>
 
-      <h1 style={{ color: "blue" }}>Hello {name}</h1>
-      <p style={{ color: "green" }}>This is a simple React app.</p>
-      <p style={{ color: "purple" }}>
-        React <br />
-        is <br />
-        a <br />
-        powerful <br />
-        JavaScript <br />
-        library <br />
-        used <b style={{ color: "red" }}>{num}</b> <br />
-        for <br />
-        building <br />
-        user <br />
-        interfaces.
-      </p>
+      <div style={styles.contentLayout}>
+        <aside style={styles.sidebar}>
+          <h2 style={styles.sidebarHeading}>Choose a Branch:</h2>
+          {btechData.map((branch) => (
+            <button
+              key={branch.id}
+              onClick={() => setActiveBranch(branch)}
+              style={{
+                ...styles.branchCard,
+                backgroundColor: activeBranch?.id === branch.id ? "#2b6cb0" : "#ffffff",
+                color: activeBranch?.id === branch.id ? "#ffffff" : "#2d3748",
+                borderColor: activeBranch?.id === branch.id ? "#2b6cb0" : "#e2e8f0",
+              }}
+            >
+              <h3 style={styles.cardName}>{branch.name}</h3>
+              <span style={styles.cardBadge}>{branch.demand}</span>
+            </button>
+          ))}
+        </aside>
 
-      {/* Second image */}
-      <img
-        style={{ width: 300 }}
-        src="https://www.bing.com/th/id/OIP.JPogPMSOOv8g9WJdtLUluAHaEe?w=193&h=135&c=8&rs=1&qlt=90&o=6&pid=3.1&rm=2"
-        alt="another image"
-      />
-
-      {/* Conditional rendering */}
-      {userage > age ? (
-        <p style={{ color: "orange" }}>User Logged IN</p>
-      ) : (
-        <p style={{ color: "gray" }}>Access Denied</p>
-      )}
-
-      {/* Button with double-click alert */}
-      <button onDoubleClick={worn} style={{ backgroundColor: "red", color: "white", padding: "10px" }}>
-        Danger
-      </button>
-    </div>
-  );
-}
-function App1() {
-  return (
-    <div>
-      {/* Here you are calling Student */}
-      <Student name="Hasan" age="22" course="React" />
+        <main style={styles.detailsPanel}>
+          <DetailsPanel activeBranch={activeBranch} styles={styles} />
+        </main>
+      </div>
     </div>
   );
 }
 
-function Student({ name, age, course }) {
-  return (
-    <div style={{ color: "navy", fontSize: "18px" }}>
-      <h2>Student Details</h2>
-      <p>Name: {name}</p>
-      <p>Age: {age}</p>
-      <p>Course: {course}</p>
-    </div>
-  );
-}
-
-export default App1;
-
+const styles = {
+  appContainer: { fontFamily: "Segoe UI, Roboto, sans-serif", padding: "24px", backgroundColor: "#f8fafc", minHeight: "100vh" },
+  appHeader: { textAlign: "center", marginBottom: "32px", borderBottom: "1px solid #e2e8f0", paddingBottom: "24px" },
+  mainTitle: { color: "#1a365d", fontSize: "2.2rem", fontWeight: "800", margin: "0 0 8px 0" },
+  mainSubtitle: { color: "#64748b", fontSize: "1rem", margin: "0" },
+  contentLayout: { display: "flex", gap: "32px", maxWidth: "1300px", margin: "0 auto", alignItems: "stretch" },
+  sidebar: { width: "320px", flexShrink: "0" },
+  sidebarHeading: { fontSize: "1.2rem", color: "#334155", marginBottom: "16px", fontWeight: "700" },
+  branchCard: { width: "100%", padding: "16px 20px", marginBottom: "12px", borderRadius: "10px", border: "2px solid", textAlign: "left", cursor: "pointer", boxShadow: "0 1px 3px rgba(0,0,0,0.05)", transition: "all 0.2s ease", display: "flex", flexDirection: "column", gap: "6px" },
+  cardName: { margin: "0", fontSize: "1.05rem", fontWeight: "600" },
+  cardBadge: { fontSize: "0.85rem", fontWeight: "500" },
+  detailsPanel: { flexGrow: "1", backgroundColor: "#ffffff", borderRadius: "12px", border: "1px solid #e2e8f0", boxShadow: "0 4px 6px -1px rgba(0,0,0,0.05)", padding: "32px" },
+};

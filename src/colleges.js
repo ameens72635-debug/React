@@ -1,0 +1,122 @@
+export const colleges = [
+  {
+    id: "iit",
+    name: "IIT Tirupati",
+    location: "Tirupati",
+    image: "/college-images/iit.svg",
+    fees: "₹8.8L",
+    availableSeats: 240,
+    branches: ["CSE", "ECE", "EEE", "MECH"],
+    placements: "90%",
+    vibe: "Competitive, National-level",
+    careerGrowth: "Excellent research, product, and global career opportunities"
+  },
+  {
+    id: "svuce",
+    name: "SVUCE Tirupati",
+    location: "Tirupati",
+    image: "/college-images/svuce.svg",
+    fees: "₹1.2L",
+    availableSeats: 420,
+    branches: ["CSE", "ECE", "EEE", "MECH", "CIVIL"],
+    placements: "70%",
+    vibe: "Affordable, Govt College",
+    careerGrowth: "Good core-engineering and public-sector opportunities"
+  },
+  {
+    id: "mits",
+    name: "MITS Madanapalle",
+    location: "Madanapalle",
+    image: "/college-images/mits.svg",
+    fees: "₹2.7L",
+    availableSeats: 720,
+    branches: ["CSE", "AI&ML", "DS", "ECE", "MECH"],
+    placements: "75%",
+    vibe: "Innovative, Vibrant",
+    careerGrowth: "Strong for software, analytics, and campus placements"
+  },
+  {
+    id: "svcet",
+    name: "SVCET Chittoor",
+    location: "Chittoor",
+    image: "/college-images/svcet.svg",
+    fees: "₹6.5L",
+    availableSeats: 600,
+    branches: ["CSE", "AI", "ECE", "EEE", "CIVIL"],
+    placements: "65%",
+    vibe: "Academics-focused",
+    careerGrowth: "Good for industry-oriented placements and labs"
+  },
+  {
+    id: "jntu",
+    name: "JNTUA College of Engineering",
+    location: "Anantapur",
+    image: "/college-images/jntu.svg",
+    fees: "₹1.0L",
+    availableSeats: 520,
+    branches: ["CSE", "ECE", "EEE", "MECH", "CIVIL", "DS"],
+    placements: "72%",
+    vibe: "Reputed, Government-backed",
+    careerGrowth: "Strong academic reputation and core placements"
+  },
+  {
+    id: "rgmcet",
+    name: "RGMCET Nandyal",
+    location: "Nandyal",
+    image: "/college-images/rgmcet.svg",
+    fees: "₹1.8L",
+    availableSeats: 640,
+    branches: ["CSE", "CSE AI&ML", "ECE", "EEE", "MECH"],
+    placements: "74%",
+    vibe: "Balanced, Career-focused",
+    careerGrowth: "Good software and core placement opportunities"
+  },
+  {
+    id: "gprec",
+    name: "GPREC Kurnool",
+    location: "Kurnool",
+    image: "/college-images/gprec.svg",
+    fees: "₹1.5L",
+    availableSeats: 560,
+    branches: ["CSE", "AI&ML", "DS", "ECE", "EEE"],
+    placements: "76%",
+    vibe: "Historic, Competitive",
+    careerGrowth: "Strong long-term career scope in tech and core domains"
+  },
+  {
+    id: "vitap",
+    name: "VIT AP",
+    location: "Amaravati",
+    image: "/college-images/vitap.svg",
+    fees: "₹9.0L",
+    availableSeats: 1200,
+    branches: ["CSE", "AI", "ML", "DS", "ECE", "EEE"],
+    placements: "88%",
+    vibe: "Modern, Startup-friendly",
+    careerGrowth: "Excellent for software, research, and global placements"
+  },
+  {
+    id: "srmap",
+    name: "SRM AP",
+    location: "Amaravati",
+    image: "/college-images/srmap.svg",
+    fees: "₹8.5L",
+    availableSeats: 1100,
+    branches: ["CSE", "AI&ML", "AI", "DS", "ECE", "MECH"],
+    placements: "86%",
+    vibe: "Premium, Student-driven",
+    careerGrowth: "Strong placement training and industry exposure"
+  },
+  {
+    id: "klu",
+    name: "KL University",
+    location: "Guntur",
+    image: "/college-images/klu.svg",
+    fees: "₹9.2L",
+    availableSeats: 1500,
+    branches: ["CSE", "AI&ML", "DS", "ECE", "EEE", "CIVIL"],
+    placements: "87%",
+    vibe: "Large campus, Career-focused",
+    careerGrowth: "Strong software placement and international pathway options"
+  }
+];

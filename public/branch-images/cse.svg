@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#0ea5e9"/>
+      <stop offset="55%" stop-color="#2563eb"/>
+      <stop offset="100%" stop-color="#7c3aed"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="520" rx="34" fill="url(#g)"/>
+  <circle cx="132" cy="110" r="90" fill="rgba(255,255,255,0.16)"/>
+  <rect x="150" y="120" width="500" height="240" rx="26" fill="rgba(255,255,255,0.92)"/>
+  <rect x="188" y="158" width="192" height="26" rx="13" fill="#0f172a"/>
+  <rect x="188" y="204" width="280" height="16" rx="8" fill="#38bdf8"/>
+  <rect x="188" y="236" width="240" height="16" rx="8" fill="#a855f7"/>
+  <rect x="188" y="268" width="204" height="16" rx="8" fill="#22c55e"/>
+  <text x="180" y="118" fill="#0f172a" font-size="44" font-family="Segoe UI, Arial" font-weight="700">CSE</text>
+  <text x="180" y="344" fill="#334155" font-size="24" font-family="Segoe UI, Arial">Code. Build. Deploy.</text>
+</svg>

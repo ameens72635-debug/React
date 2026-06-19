@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#a16207"/>
+      <stop offset="55%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#0ea5e9"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="520" rx="34" fill="url(#g)"/>
+  <rect x="120" y="96" width="560" height="328" rx="30" fill="rgba(255,255,255,0.92)"/>
+  <rect x="196" y="256" width="84" height="112" rx="8" fill="#0f172a" opacity="0.18"/>
+  <rect x="302" y="204" width="84" height="164" rx="8" fill="#0f172a" opacity="0.28"/>
+  <rect x="408" y="172" width="84" height="196" rx="8" fill="#0f172a" opacity="0.38"/>
+  <rect x="514" y="232" width="84" height="136" rx="8" fill="#0f172a" opacity="0.22"/>
+  <text x="180" y="168" fill="#0f172a" font-size="38" font-family="Segoe UI, Arial" font-weight="700">CIVIL</text>
+  <text x="180" y="388" fill="#334155" font-size="24" font-family="Segoe UI, Arial">Build cities. Shape skylines.</text>
+</svg>
