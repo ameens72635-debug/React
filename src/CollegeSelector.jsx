@@ -1,13 +1,31 @@
+import { useState } from "react";
 import { colleges } from './colleges';
 
-export default function CollegeSelector({ styles }) {
+export default function CollegeSelector({ styles, onOpenCollege, initialSelectedCollege = null }) {
+  const [activeCollege, setActiveCollege] = useState(initialSelectedCollege);
+
   return (
     <div style={styles.detailsPanel}>
       <h2 style={styles.panelTitle}>🏫 Choose Your College</h2>
-      <p style={styles.cardText}>Compare fees, available seats, branches, and career growth across the top options.</p>
+      <p style={styles.cardText}>Compare fees, seats, branches, and placements, then click a college to see the full details.</p>
       <div style={styles.cardGrid}>
         {colleges.map((college) => (
-          <div key={college.id} style={styles.subCard}>
+          <button
+            key={college.id}
+            type="button"
+            onClick={() => {
+              setActiveCollege(college);
+              if (typeof onOpenCollege === "function") {
+                onOpenCollege(college);
+              }
+            }}
+            style={{
+              ...styles.subCard,
+              textAlign: "left",
+              border: activeCollege?.id === college.id ? "2px solid #2b6cb0" : styles.subCard.border,
+              transform: activeCollege?.id === college.id ? "translateY(-2px)" : "none",
+            }}
+          >
             <img
               src={college.image}
               alt={college.name}
@@ -21,7 +39,7 @@ export default function CollegeSelector({ styles }) {
             <p style={styles.cardText}><strong>Placements:</strong> {college.placements}</p>
             <p style={styles.cardText}><strong>Career Growth:</strong> {college.careerGrowth}</p>
             <p style={styles.cardText}><strong>Campus Vibe:</strong> {college.vibe}</p>
-          </div>
+          </button>
         ))}
       </div>
     </div>

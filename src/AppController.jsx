@@ -3,12 +3,16 @@ import { useState } from "react";
 import LandingPage from "./LandingPage.jsx";
 import CollegeSelector from "./CollegeSelector.jsx";
 import BranchExplorer from "./BranchExplorer.jsx";
+import BranchDetailPage from "./BranchDetailPage.jsx";
+import CollegeDetailPage from "./CollegeDetailPage.jsx";
 import Quiz from "./Quiz.jsx";
 import SalaryEstimator from "./SalaryEstimator.jsx";
 import CollegeComparator from "./CollegeComparator.jsx";
 
 export default function AppController() {
   const [pageHistory, setPageHistory] = useState(["landing"]);
+  const [selectedBranch, setSelectedBranch] = useState(null);
+  const [selectedCollege, setSelectedCollege] = useState(null);
   const page = pageHistory[pageHistory.length - 1];
 
   const navigateTo = (nextPage) => {
@@ -20,6 +24,16 @@ export default function AppController() {
 
       return [...currentHistory, nextPage];
     });
+  };
+
+  const openBranchDetail = (branch) => {
+    setSelectedBranch(branch);
+    setPageHistory((currentHistory) => [...currentHistory, "branchDetail"]);
+  };
+
+  const openCollegeDetail = (college) => {
+    setSelectedCollege(college);
+    setPageHistory((currentHistory) => [...currentHistory, "collegeDetail"]);
   };
 
   const goBack = () => {
@@ -64,8 +78,10 @@ export default function AppController() {
 
   const pageContent =
     page === "landing" ? <LandingPage styles={styles} onNavigate={navigateTo} /> :
-    page === "college" ? <CollegeSelector styles={styles} onNavigate={navigateTo} /> :
-    page === "branch" ? <BranchExplorer styles={styles} onNavigate={navigateTo} /> :
+    page === "college" ? <CollegeSelector styles={styles} onNavigate={navigateTo} onOpenCollege={openCollegeDetail} initialSelectedCollege={selectedCollege} /> :
+    page === "branch" ? <BranchExplorer styles={styles} onNavigate={navigateTo} onOpenBranch={openBranchDetail} initialActiveBranch={selectedBranch} /> :
+    page === "branchDetail" ? <BranchDetailPage styles={styles} branch={selectedBranch} onNavigate={navigateTo} /> :
+    page === "collegeDetail" ? <CollegeDetailPage styles={styles} college={selectedCollege} onNavigate={navigateTo} /> :
     page === "quiz" ? <Quiz styles={styles} onNavigate={navigateTo} /> :
     page === "salary" ? <SalaryEstimator styles={styles} onNavigate={navigateTo} /> :
     page === "compare" ? <CollegeComparator styles={styles} onNavigate={navigateTo} /> :

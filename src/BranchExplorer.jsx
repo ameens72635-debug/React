@@ -10,11 +10,13 @@ const fallbackStyles = {
   },
   mainTitle: { color: "#ffffff", fontSize: "2.3rem", fontWeight: "800", marginBottom: "8px" },
   mainSubtitle: { color: "#e2e8f0", fontSize: "1rem", marginBottom: "24px" },
-  contentLayout: { display: "flex", gap: "32px", maxWidth: "1360px", margin: "0 auto", alignItems: "stretch", flexWrap: "wrap" },
-  sidebar: { width: "330px", flexShrink: "0" },
+  contentLayout: { display: "flex", flexDirection: "column", gap: "22px", maxWidth: "1480px", margin: "0 auto", alignItems: "stretch" },
+  sidebar: { width: "100%", flexShrink: "0" },
   sidebarHeading: { fontSize: "1.2rem", color: "#e2e8f0", marginBottom: "16px", fontWeight: "800" },
+  branchRail: { display: "flex", gap: "14px", overflowX: "auto", paddingBottom: "8px", scrollbarWidth: "thin" },
   branchCard: {
-    width: "100%",
+    width: "260px",
+    flex: "0 0 260px",
     padding: "0",
     marginBottom: "12px",
     borderRadius: "18px",
@@ -38,10 +40,14 @@ const fallbackStyles = {
   cardBadge: { fontSize: "0.85rem", fontWeight: "500" },
   cardMetaRow: { display: "flex", gap: "8px", flexWrap: "wrap", marginTop: "10px" },
   branchPill: { display: "inline-flex", alignItems: "center", borderRadius: "999px", padding: "6px 10px", backgroundColor: "rgba(255,255,255,0.16)", color: "#ffffff", fontSize: "0.78rem", fontWeight: "700" },
-  detailGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "16px", marginTop: "12px" },
+  infoSection: { marginTop: "16px" },
+  infoSectionTitle: { fontSize: "1.05rem", fontWeight: "800", marginBottom: "10px", color: "#0f172a" },
+  detailGrid: { display: "flex", gap: "14px", overflowX: "auto", paddingBottom: "6px" },
+  detailCard: { minWidth: "220px", flex: "0 0 220px" },
   detailItem: { backgroundColor: "rgba(14,165,233,0.08)", borderRadius: "14px", padding: "14px", border: "1px solid rgba(14,165,233,0.12)" },
   detailLabel: { display: "block", fontSize: "0.78rem", textTransform: "uppercase", letterSpacing: "0.08em", color: "#64748b", marginBottom: "6px", fontWeight: "700" },
   detailValue: { fontSize: "0.98rem", color: "#0f172a", fontWeight: "600" },
+  longTextPanel: { backgroundColor: "rgba(255,255,255,0.78)", borderRadius: "18px", padding: "16px 18px", border: "1px solid rgba(148,163,184,0.18)", marginTop: "14px" },
   detailsPanel: {
     flexGrow: "1",
     position: "relative",
@@ -73,9 +79,9 @@ const fallbackStyles = {
   pathPill: { display: "inline-flex", alignItems: "center", padding: "10px 12px", borderRadius: "999px", background: "rgba(255,255,255,0.72)", border: "1px solid rgba(148,163,184,0.22)", color: "#0f172a", fontWeight: "700" },
 };
 
-export default function BranchExplorer({ styles = fallbackStyles }) {
+export default function BranchExplorer({ styles = fallbackStyles, onOpenBranch, initialActiveBranch = null }) {
   const mergedStyles = { ...fallbackStyles, ...styles };
-  const [activeBranch, setActiveBranch] = useState(null);
+  const [activeBranch, setActiveBranch] = useState(initialActiveBranch);
   const panelBackdropStyle = activeBranch
     ? {
         backgroundImage: `radial-gradient(circle at 20% 20%, ${activeBranch.accentFrom}33, transparent 35%), radial-gradient(circle at 80% 20%, ${activeBranch.accentTo}44, transparent 30%), linear-gradient(135deg, ${activeBranch.accentFrom}18, ${activeBranch.accentTo}20)`,
@@ -94,42 +100,49 @@ export default function BranchExplorer({ styles = fallbackStyles }) {
       <div style={mergedStyles.contentLayout}>
         <aside style={mergedStyles.sidebar}>
           <h2 style={mergedStyles.sidebarHeading}>Choose a Branch:</h2>
-          {btechData.map((branch) => (
-            <button
-              key={branch.id}
-              onClick={() => setActiveBranch(branch)}
-              style={{
-                ...mergedStyles.branchCard,
-                backgroundColor: activeBranch?.id === branch.id ? "#2b6cb0" : "#ffffff",
-                color: activeBranch?.id === branch.id ? "#ffffff" : "#2d3748",
-                borderColor: activeBranch?.id === branch.id ? "#2b6cb0" : "#e2e8f0",
-                ...(activeBranch?.id === branch.id ? mergedStyles.branchCardActive : {}),
-              }}
-            >
-              <div style={mergedStyles.cardImageWrap}>
-                <img
-                  src={branch.image}
-                  alt={branch.name}
-                  style={mergedStyles.cardMedia}
-                  onError={(event) => {
-                    if (branch.fallbackImage && event.currentTarget.src !== window.location.origin + branch.fallbackImage) {
-                      event.currentTarget.src = branch.fallbackImage;
-                    }
-                  }}
-                />
-                <div style={mergedStyles.cardOverlay} />
-              </div>
-              <div style={mergedStyles.cardInner}>
-                <h3 style={mergedStyles.cardName}>{branch.name}</h3>
-                <span style={mergedStyles.cardBadge}>{branch.demand}</span>
-                <div style={mergedStyles.cardMetaRow}>
-                  <span style={mergedStyles.branchPill}>Salary</span>
-                  <span style={mergedStyles.branchPill}>Growth</span>
-                  <span style={mergedStyles.branchPill}>Skills</span>
+          <div style={mergedStyles.branchRail}>
+            {btechData.map((branch) => (
+              <button
+                key={branch.id}
+                onClick={() => {
+                  setActiveBranch(branch);
+                  if (typeof onOpenBranch === "function") {
+                    onOpenBranch(branch);
+                  }
+                }}
+                style={{
+                  ...mergedStyles.branchCard,
+                  backgroundColor: activeBranch?.id === branch.id ? "#2b6cb0" : "#ffffff",
+                  color: activeBranch?.id === branch.id ? "#ffffff" : "#2d3748",
+                  borderColor: activeBranch?.id === branch.id ? "#2b6cb0" : "#e2e8f0",
+                  ...(activeBranch?.id === branch.id ? mergedStyles.branchCardActive : {}),
+                }}
+              >
+                <div style={mergedStyles.cardImageWrap}>
+                  <img
+                    src={branch.image}
+                    alt={branch.name}
+                    style={mergedStyles.cardMedia}
+                    onError={(event) => {
+                      if (branch.fallbackImage && event.currentTarget.src !== window.location.origin + branch.fallbackImage) {
+                        event.currentTarget.src = branch.fallbackImage;
+                      }
+                    }}
+                  />
+                  <div style={mergedStyles.cardOverlay} />
                 </div>
-              </div>
-            </button>
-          ))}
+                <div style={mergedStyles.cardInner}>
+                  <h3 style={mergedStyles.cardName}>{branch.name}</h3>
+                  <span style={mergedStyles.cardBadge}>{branch.demand}</span>
+                  <div style={mergedStyles.cardMetaRow}>
+                    <span style={mergedStyles.branchPill}>Salary</span>
+                    <span style={mergedStyles.branchPill}>Growth</span>
+                    <span style={mergedStyles.branchPill}>Skills</span>
+                  </div>
+                </div>
+              </button>
+            ))}
+          </div>
         </aside>
 
         <main style={mergedStyles.detailsPanel}>
@@ -162,30 +175,38 @@ export default function BranchExplorer({ styles = fallbackStyles }) {
                   <span key={role} style={mergedStyles.pathPill}>{role}</span>
                 ))}
               </div>
-              <div style={mergedStyles.detailGrid}>
-                <div style={mergedStyles.detailItem}>
-                  <span style={mergedStyles.detailLabel}>Demand</span>
-                  <span style={mergedStyles.detailValue}>{activeBranch.demand}</span>
-                </div>
-                <div style={mergedStyles.detailItem}>
-                  <span style={mergedStyles.detailLabel}>Starting Salary</span>
-                  <span style={mergedStyles.detailValue}>{activeBranch.startingSalary}</span>
-                </div>
-                <div style={mergedStyles.detailItem}>
-                  <span style={mergedStyles.detailLabel}>Career Growth</span>
-                  <span style={mergedStyles.detailValue}>{activeBranch.careerGrowth}</span>
-                </div>
-                <div style={mergedStyles.detailItem}>
-                  <span style={mergedStyles.detailLabel}>Key Skills</span>
-                  <span style={mergedStyles.detailValue}>{activeBranch.keySkills.join(", ")}</span>
+              <div style={mergedStyles.infoSection}>
+                <h3 style={mergedStyles.infoSectionTitle}>Infrastructure & Outcomes</h3>
+                <div style={mergedStyles.detailGrid}>
+                  <div style={{ ...mergedStyles.detailItem, ...mergedStyles.detailCard }}>
+                    <span style={mergedStyles.detailLabel}>Demand</span>
+                    <span style={mergedStyles.detailValue}>{activeBranch.demand}</span>
+                  </div>
+                  <div style={{ ...mergedStyles.detailItem, ...mergedStyles.detailCard }}>
+                    <span style={mergedStyles.detailLabel}>Starting Salary</span>
+                    <span style={mergedStyles.detailValue}>{activeBranch.startingSalary}</span>
+                  </div>
+                  <div style={{ ...mergedStyles.detailItem, ...mergedStyles.detailCard }}>
+                    <span style={mergedStyles.detailLabel}>Career Growth</span>
+                    <span style={mergedStyles.detailValue}>{activeBranch.careerGrowth}</span>
+                  </div>
+                  <div style={{ ...mergedStyles.detailItem, ...mergedStyles.detailCard }}>
+                    <span style={mergedStyles.detailLabel}>Key Skills</span>
+                    <span style={mergedStyles.detailValue}>{activeBranch.keySkills.join(", ")}</span>
+                  </div>
+                  <div style={{ ...mergedStyles.detailItem, ...mergedStyles.detailCard }}>
+                    <span style={mergedStyles.detailLabel}>Top Companies</span>
+                    <span style={mergedStyles.detailValue}>{activeBranch.topCompanies.join(", ")}</span>
+                  </div>
                 </div>
               </div>
-              <p style={mergedStyles.cardText}><strong>Study Pressure:</strong> {activeBranch.studyPressure}</p>
-              <p style={mergedStyles.cardText}><strong>Lab Reality:</strong> {activeBranch.labReality}</p>
-              <p style={mergedStyles.cardText}><strong>College Vibe:</strong> {activeBranch.collegeVibe}</p>
-              <p style={mergedStyles.cardText}><strong>Top Job Roles:</strong> {activeBranch.jobRoles.join(", ")}</p>
-              <p style={mergedStyles.cardText}><strong>Top Companies:</strong> {activeBranch.topCompanies.join(", ")}</p>
-              <p style={mergedStyles.cardText}><strong>Future Growth:</strong> {activeBranch.futureGrowth}</p>
+
+              <div style={mergedStyles.longTextPanel}>
+                <p style={mergedStyles.cardText}><strong>Study Pressure:</strong> {activeBranch.studyPressure}</p>
+                <p style={mergedStyles.cardText}><strong>Lab Reality:</strong> {activeBranch.labReality}</p>
+                <p style={mergedStyles.cardText}><strong>College Vibe:</strong> {activeBranch.collegeVibe}</p>
+                <p style={mergedStyles.cardText}><strong>Future Growth:</strong> {activeBranch.futureGrowth}</p>
+              </div>
             </div>
           ) : (
             <div style={mergedStyles.panelContent}>
